@@ -28,6 +28,18 @@ class Admin extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
+	public function tamu_undangan()
+	{
+		$data['title'] = 'Tamu Undangan';
+		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+		$this->load->view('template/header', $data);
+		$this->load->view('template/sidebar', $data);
+		$this->load->view('template/topbar', $data);
+		$this->load->view('admin/tamu_undangan', $data);
+		$this->load->view('template/footer');
+	}
+
 	public function Download()
 	{
 		$data['title'] = 'Download table role';
