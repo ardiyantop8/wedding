@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Menu extends CI_Controller {
+class Menu extends CI_Controller
+{
 
 	public function __construct()
 	{
@@ -12,42 +13,41 @@ class Menu extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Menu Management';
-		$data['user'] = $this->db->get_where('user',['nik' => $this->session->userdata('nik')])->row_array();
-		
-		$data['menu'] = $this->db->get('user_menu')->result_array(); 
+		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+		$data['menu'] = $this->db->get('user_menu')->result_array();
 
 		$this->form_validation->set_rules('menu', 'Menu', 'required');
 
-		if ($this->form_validation->run() == false ){
+		if ($this->form_validation->run() == false) {
 			$this->load->view('template/header', $data);
 			$this->load->view('template/sidebar', $data);
 			$this->load->view('template/topbar', $data);
 			$this->load->view('menu/index', $data);
-			$this->load->view('template/footer');	
+			$this->load->view('template/footer');
 		} else {
-			$this->db->insert('user_menu',['menu' => $this->input->post('menu')]);
+			$this->db->insert('user_menu', ['menu' => $this->input->post('menu')]);
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> New menu added </div>');
-					redirect('menu');
+			redirect('menu');
 		}
-
 	}
 
 	public function submenu()
 	{
 		$data['title'] = 'Submenu Management';
-		$data['user'] = $this->db->get_where('user',['nik' => $this->session->userdata('nik')])->row_array();
+		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$this->load->model('Menu_model', 'menu');
 
 		$data['subMenu'] = $this->menu->getSubMenu();
 		$data['menu']	 = $this->db->get('user_menu')->result_array();
 
 		$this->form_validation->set_rules('title', 	'Title', 'required');
-		$this->form_validation->set_rules('menu_id','Menu', 'required');
+		$this->form_validation->set_rules('menu_id', 'Menu', 'required');
 		$this->form_validation->set_rules('url', 	'URL', 'required');
 		$this->form_validation->set_rules('icon', 	'Icon', 'required');
-		
 
-		if($this->form_validation->run() == false ) {
+
+		if ($this->form_validation->run() == false) {
 			$this->load->view('template/header', $data);
 			$this->load->view('template/sidebar', $data);
 			$this->load->view('template/topbar', $data);
@@ -63,9 +63,7 @@ class Menu extends CI_Controller {
 			];
 			$this->db->insert('user_sub_menu', $data);
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> New sub menu added </div>');
-					redirect('menu/submenu');
-		}		
-			
+			redirect('menu/submenu');
+		}
 	}
-
 }

@@ -9,7 +9,7 @@
   <li><a href="#gallery">GALERI</a></li>
   <li><a href="<?= base_url('Umum/list_tamu'); ?><?= $link_get[0]['get']; ?>">TAMU UNDANGAN</a></li>
   <li><a href="aboutApps.php<?= $link_get[0]['get']; ?>">TENTANG APLIKASI</a></li>
-  <li><a href="Login.php">MASUK</a></li>
+  <li><a href="<?= base_url('Auth'); ?>">MASUK</a></li>
 </ul>
 </div>
 </header>
