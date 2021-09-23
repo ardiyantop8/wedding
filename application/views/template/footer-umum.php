@@ -7,19 +7,27 @@
       <i class="icon icon-star"></i>
     </div>
     <ul class="social-icons">
-      <li><a href="#"><i class="icon icon-heart"></i></a></li>
-      <li><a href="<?php echo $isi_sosmed[0]['twitter']; ?>" target="_blank"><i class="icon icon-twitter"></i></a></li>
-      <li><a href="<?php echo $isi_sosmed[0]['ig']; ?>" target="_blank"><i class="icon icon-instagram"></i></a></li>
-      <li><a href="<?php echo $isi_sosmed[0]['fb']; ?>" target="_blank"><i class="icon icon-facebook"></i></a></li>
-      <?php
-      ?>
+      <?php if (isset($isi_sosmed)) : ?>
+        <li><a href="#"><i class="icon icon-heart"></i></a></li>
+        <li><a href="<?= $isi_sosmed[0]['twitter']; ?>" target="_blank"><i class="icon icon-twitter"></i></a></li>
+        <li><a href="<?= $isi_sosmed[0]['ig']; ?>" target="_blank"><i class="icon icon-instagram"></i></a></li>
+        <li><a href="<?= $isi_sosmed[0]['fb']; ?>" target="_blank"><i class="icon icon-facebook"></i></a></li>
+      <?php endif; ?>
     </ul>
     <ul class="footer-links">
-      <li><a href="index.php<?= $link_get[0]['get']; ?>">BERANDA</a></li>
-      <li><a href="#sambuta">SAMBUTAN</a></li>
-      <li><a href="#ceritaKita">CERITA KITA</a></li>
-      <li><a href="#gallery">GALERI</a></li>
-      <li><a href="<?= base_url('Umum/list_tamu'); ?><?= $link_get[0]['get']; ?>">TAMU UNDANGAN</a></li>
+      <?php if (isset($link_get[0]['get'])) : ?>
+        <li><a href="<?= base_url(); ?>/<?= $link_get[0]['get']; ?>">BERANDA</a></li>
+        <li><a href="#sambuta">SAMBUTAN</a></li>
+        <li><a href="#ceritaKita">CERITA KITA</a></li>
+        <li><a href="#gallery">GALERI</a></li>
+        <li><a href="<?= base_url('Umum/list_tamu'); ?><?= $link_get[0]['get']; ?>">TAMU UNDANGAN</a></li>
+      <?php else : ?>
+        <li><a href="<?= base_url(); ?>">BERANDA</a></li>
+        <li><a href="#sambuta">SAMBUTAN</a></li>
+        <li><a href="#ceritaKita">CERITA KITA</a></li>
+        <li><a href="#gallery">GALERI</a></li>
+        <li><a href="<?= base_url('Umum/list_tamu'); ?>">TAMU UNDANGAN</a></li>
+      <?php endif; ?>
     </ul>
     <p class="copyright"> Copyright &copy;<script>
         document.write(new Date().getFullYear());

@@ -6,46 +6,50 @@
                 <div class="slider-content">
 
                     <i class="small-icon icon icon-tie"></i>
-                    <?php
-                    $getTanggal = $isi_resepsi[0]['tglResepsi'];
-                    $pecahTanggal = explode("-", $getTanggal);
-                    $tahun = $pecahTanggal[0];
-                    $bulan = $pecahTanggal[1];
-                    $tanggal = $pecahTanggal[2];
+                    <?php if (isset($isi_resepsi[0]['tglResepsi'])) : ?>
+                        <?php
+                        $getTanggal = $isi_resepsi[0]['tglResepsi'];
+                        $pecahTanggal = explode("-", $getTanggal);
+                        $tahun = $pecahTanggal[0];
+                        $bulan = $pecahTanggal[1];
+                        $tanggal = $pecahTanggal[2];
 
-                    if ($bulan == "01") {
-                        echo "<h5 = class'date'>" . $tanggal . " Januari " . $tahun . "</h5>";
-                    } else if ($bulan == "02") {
-                        echo "<h5 = class'date'>" . $tanggal . " Februari " . $tahun . "</h5>";
-                    } else if ($bulan == "03") {
-                        echo "<h5 = class'date'>" . $tanggal . " Maret" . $tahun . "</h5>";
-                    } else if ($bulan == "04") {
-                        echo "<h5 = class'date'>" . $tanggal . " April " . $tahun . "</h5>";
-                    } else if ($bulan == "05") {
-                        echo "<h5 class='date'>" . $tanggal . " Mei " . $tahun . "</h5>";
-                    } else if ($bulan == "06") {
-                        echo "<h5 class='date'>" . $tanggal . " Juni " . $tahun . "</h5>";
-                    } else if ($bulan == "07") {
-                        echo "<h5 = class'date'>" . $tanggal . " Juli " . $tahun . "</h5>";
-                    } else if ($bulan == "08") {
-                        echo "<h5 = class'date'>" . $tanggal . " Agustus " . $tahun . "</h5>";
-                    } else if ($bulan == "09") {
-                        echo "<h5 = class'date'>" . $tanggal . " September " . $tahun . "</h5>";
-                    } else if ($bulan == "10") {
-                        echo "<h5 = class'date'>" . $tanggal . " Oktober " . $tahun . "</h5>";
-                    } else if ($bulan == "11") {
-                        echo "<h5 = class'date'>" . $tanggal . " November " . $tahun . "</h5>";
-                    } else if ($bulan == "12") {
-                        echo "<h5 = class'date'>" . $tanggal . " Desember " . $tahun . "</h5>";
-                    }
+                        if ($bulan == "01") {
+                            echo "<h5 = class'date'>" . $tanggal . " Januari " . $tahun . "</h5>";
+                        } else if ($bulan == "02") {
+                            echo "<h5 = class'date'>" . $tanggal . " Februari " . $tahun . "</h5>";
+                        } else if ($bulan == "03") {
+                            echo "<h5 = class'date'>" . $tanggal . " Maret" . $tahun . "</h5>";
+                        } else if ($bulan == "04") {
+                            echo "<h5 = class'date'>" . $tanggal . " April " . $tahun . "</h5>";
+                        } else if ($bulan == "05") {
+                            echo "<h5 class='date'>" . $tanggal . " Mei " . $tahun . "</h5>";
+                        } else if ($bulan == "06") {
+                            echo "<h5 class='date'>" . $tanggal . " Juni " . $tahun . "</h5>";
+                        } else if ($bulan == "07") {
+                            echo "<h5 = class'date'>" . $tanggal . " Juli " . $tahun . "</h5>";
+                        } else if ($bulan == "08") {
+                            echo "<h5 = class'date'>" . $tanggal . " Agustus " . $tahun . "</h5>";
+                        } else if ($bulan == "09") {
+                            echo "<h5 = class'date'>" . $tanggal . " September " . $tahun . "</h5>";
+                        } else if ($bulan == "10") {
+                            echo "<h5 = class'date'>" . $tanggal . " Oktober " . $tahun . "</h5>";
+                        } else if ($bulan == "11") {
+                            echo "<h5 = class'date'>" . $tanggal . " November " . $tahun . "</h5>";
+                        } else if ($bulan == "12") {
+                            echo "<h5 = class'date'>" . $tanggal . " Desember " . $tahun . "</h5>";
+                        }
 
-                    ?>
+                        ?>
+                    <?php endif; ?>
                     <h3 class="pre-title">Save The Date</h3>
                     <h1 class="title"><?php echo $isi_resepsi[0]['namaPria']; ?><br> <i class="icon icon-heart"></i><br> <?php echo $isi_resepsi[0]['namaWanita']; ?></h1>
                     <br><br><br>
-                    <h4 style="color:black;">Turut Mengundang :</h4>
-                    <h2><?php echo $link_get[0]['nama']; ?></h2><br>
-                    <h2>Di Tempat</h2>
+                    <?php if (isset($link_get[0]['nama'])) : ?>
+                        <h4 style="color:black;">Turut Mengundang :</h4>
+                        <h2><?php echo $link_get[0]['nama']; ?></h2><br>
+                        <h2>Di Tempat</h2>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -66,14 +70,16 @@
                     <!-- statrt = untuk menampilkan sambutan -->
 
                     <!-- bagian pembuka sambutan-->
-                    <p class="desc margin-bottom"><?php echo $isi_sambutan[0]['pembukaSambutan']; ?>
-                        <br>
-                        <!-- bagian isi sambutan -->
-                        <?php echo $isi_sambutan[0]['isiSambutan']; ?>
-                        <br>
-                        <!-- bagian penutup sambutan -->
-                        <?php echo $isi_sambutan[0]['penutupSambutan']; ?>
-                    </p>
+                    <?php if (isset($isi_sambutan[0]['pembukaSambutan'])) : ?>
+                        <p class="desc margin-bottom"><?= $isi_sambutan[0]['pembukaSambutan']; ?>
+                            <br>
+                            <!-- bagian isi sambutan -->
+                            <?php echo $isi_sambutan[0]['isiSambutan']; ?>
+                            <br>
+                            <!-- bagian penutup sambutan -->
+                            <?php echo $isi_sambutan[0]['penutupSambutan']; ?>
+                        </p>
+                    <?php endif; ?>
                     <!-- end = untuk menampilkan sambutan -->
 
                 </div>
@@ -92,8 +98,6 @@
                     <div class="heading">
                         <h2 class="title">Jangan Lupa</h2>
                         <?php
-                        // $hitungTgl = mysqli_query($conn, "SELECT * FROM resepsi");
-                        // while ($hTgl = mysqli_fetch_array($hitungTgl)) {
                         $tgl = $isi_resepsi[0]['tglResepsi'];
                         $pTgl = explode("-", $tgl);
                         $hYears = $pTgl[0];

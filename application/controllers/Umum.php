@@ -14,9 +14,12 @@ class Umum extends CI_Controller
 	public function index()
 	{
 		$data['title'] 			= 'Wedding Ardi Desti';
-		$data_get_url			= isset($_GET['link']) ? $_GET['link'] : '';
-		$data['link_get']		= $this->Weeding_model->get_link($data_get_url);
-
+		$data_get_url			= (isset($_GET['link']) ? $_GET['link'] : '');
+		if (isset($data_get_url)) {
+			$data['link_get']		= $this->Weeding_model->get_link($data_get_url);
+		} else {
+			$data['link_get']		= '';
+		}
 		$data['isi_resepsi'] 	= $this->Weeding_model->all_resepsi();
 		$data['isi_sambutan'] 	= $this->Weeding_model->all_sambutan();
 		$data['isi_cerita'] 	= $this->Weeding_model->all_cerita();
