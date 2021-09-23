@@ -28,12 +28,14 @@ class Admin extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
-	public function tamu_undangan($page)
+	public function tamu_undangan($page = false)
 	{
-		$page = (isset($this->input->post('page')) ? $this->input->post('page') : 0);
-		echo "<pre>";
-		print_r($page);
-		die;
+		if ($page == false) {
+			$page = 0;
+		} else {
+			$page = $this->input->post('page');
+		}
+
 		$data['title'] = 'Tamu Undangan';
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
