@@ -63,4 +63,13 @@ class Weeding_model extends CI_Model
         // die;
         return $result;
     }
+
+    public function get_data_tamu_undangan($limit, $page)
+    {
+        $this->db->select('*');
+        $this->db->order_by("idTamu", "asc");
+        $query  = $this->db->get('tamuundangan', $limit, $page)->result();
+
+        return $query;
+    }
 }

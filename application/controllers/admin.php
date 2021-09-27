@@ -8,6 +8,7 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 		is_logged_in();
+		$this->load->model('Weeding_model');
 	}
 
 
@@ -28,16 +29,18 @@ class Admin extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
-	public function tamu_undangan($page = false)
+	public function tamu_undangan($home = false)
 	{
-		if ($page == false) {
+		if ($home == false) {
 			$page = 0;
 		} else {
 			$page = $this->input->post('page');
 		}
 
+		$limit = 5;
 		$data['title'] = 'Tamu Undangan';
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+		$data['list_undangan'] = $this->Weeding_model->get_data_tamu_undangan($limit, $page);
 
 		$this->load->view('template/header', $data);
 		$this->load->view('template/sidebar', $data);

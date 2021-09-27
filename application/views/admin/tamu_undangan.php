@@ -3,34 +3,30 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
+    <button class="btn btn-primary" id=btn_add_list_tamu>Tambah List Tamu</button><br><br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Link undangan</th>
+                <th>No Telp</th>
+                <th>Alamat</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($list_undangan as $row) : ?>
+                <tr>
+                    <td><?= $row->idTamu; ?></td>
+                    <td><?= $row->nama; ?></td>
+                    <td><?= $row->get; ?></td>
+                    <td><?= $row->noTelp; ?></td>
+                    <td><?= $row->alamat; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
-    <div class="row">
-        <div class="col-lg-7">
-            <?= form_open_multipart('user/edit'); ?>
-            <div class="form-group row">
-                <label for="to" class="col-sm-2 col-form-label">Undangan Untuk </label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="to" id="to" placeholder="Masukan Nama yang diundang ">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">No Telp </label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="no_telp" id="no_telp">
-                </div>
-            </div>
-
-            <div class="form-group row justify-content-end">
-                <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </div>
-            </form>
-
-
-
-        </div>
-    </div>
 
 
 </div>
