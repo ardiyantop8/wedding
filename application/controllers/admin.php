@@ -8,6 +8,8 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 		is_logged_in();
+		$this->load->helper('url');
+		$this->load->library('pagination');
 		$this->load->model('Weeding_model');
 	}
 
@@ -29,24 +31,64 @@ class Admin extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
-	public function tamu_undangan($home = false)
+	public function tamu_undangan()
 	{
-		if ($home == false) {
-			$page = 0;
-		} else {
-			$page = $this->input->post('page');
-		}
-
-		$limit = 5;
 		$data['title'] = 'Tamu Undangan';
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-		$data['list_undangan'] = $this->Weeding_model->get_data_tamu_undangan($limit, $page);
 
 		$this->load->view('template/header', $data);
 		$this->load->view('template/sidebar', $data);
 		$this->load->view('template/topbar', $data);
 		$this->load->view('admin/tamu_undangan', $data);
 		$this->load->view('template/footer');
+	}
+
+	public function loadRecord($rowno = 0)
+	{
+		// Row per page
+		$rowperpage = 5;
+
+		// Row position
+		if ($rowno != 0) {
+			$rowno = ($rowno - 1) * $rowperpage;
+		}
+
+		// All records count
+		$allcount = $this->Weeding_model->getrecordCount();
+
+		// Get records
+		$users_record = $this->Weeding_model->getData($rowno, $rowperpage);
+
+		// Pagination Configuration
+		$config['base_url'] = base_url('Admin/loadRecord');
+		$config['use_page_numbers'] = TRUE;
+		$config['total_rows'] = $allcount;
+		$config['per_page'] = $rowperpage;
+
+		$config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination">';
+		$config['full_tag_close']   = '</ul></nav></div>';
+		$config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+		$config['num_tag_close']    = '</span></li>';
+		$config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+		$config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
+		$config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['next_tag_close']  = '<span aria-hidden="true"></span></span></li>';
+		$config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['prev_tag_close']  = '</span></li>';
+		$config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+		$config['first_tag_close'] = '</span></li>';
+		$config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['last_tag_close']  = '</span></li>';
+
+		// Initialize
+		$this->pagination->initialize($config);
+
+		// Initialize $data Array
+		$data['pagination'] = $this->pagination->create_links();
+		$data['result'] = $users_record;
+		$data['row'] = $rowno;
+
+		echo json_encode($data);
 	}
 
 	public function Download()

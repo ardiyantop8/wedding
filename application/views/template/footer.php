@@ -79,6 +79,50 @@
         
     });
 
+    // Detect pagination click
+    $('#pagination').on('click', 'a', function(e) {
+            e.preventDefault();
+            var pageno = $(this).attr('data-ci-pagination-page');
+            loadPagination(pageno);
+        });
+
+        loadPagination(0);
+
+        // Load pagination
+        function loadPagination(pagno) {
+            $.ajax({
+                url: "<?= base_url('Admin/loadRecord/') ?>" + pagno,
+                type: "get",
+                dataType: "json",
+                success: function(response) {
+                    $('#pagination').html(response.pagination);
+                    createTable(response.result, response.row);
+                }
+            });
+        }
+
+        // Create table list
+        function createTable(result, sno) {
+            sno = Number(sno);
+            $('#postsList tbody').empty();
+            for (index in result) {
+                var id = result[index].idTamu;
+                var nama = result[index].nama;
+                var get = result[index].get;
+                // content = content.substr(0, 60) + " ...";
+                // var link = result[index].link;
+                sno += 1;
+
+                var tr = "<tr>";
+                tr += "<td>" + sno + "</td>";
+                tr += "<td>" + nama+"</td>";
+                tr += "<td>" + get + "</td>";
+                tr += "</tr>";
+                $('#postsList tbody').append(tr);
+
+            }
+        }
+
     /* tutup untuk view tamu_undangan */
   </script>
 
